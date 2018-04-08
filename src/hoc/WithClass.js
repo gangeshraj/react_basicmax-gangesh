@@ -19,6 +19,7 @@ const withClass = (WrappedComponent, className) => {
         }
     }
 
+    //here ref is passed from person a child component with react.forwardRef anew addition of react 16.3
     return React.forwardRef((props, ref) => {
         return <WithClass {...props} forwardedRef={ref} />
     });

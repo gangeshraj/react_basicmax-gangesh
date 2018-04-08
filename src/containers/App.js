@@ -6,9 +6,13 @@ import Cockpit from "../components/Cockpit/Cockpit";
 import Aux from "../hoc/Auxiliary";
 import withClass from "../hoc/WithClass";
 
+//exporting to use this context API
 export const AuthContext = React.createContext(false);//false is default value
 
+
 class App extends PureComponent {//pure component having own shouldComponentUpdate lifecyclehook
+
+
   constructor(props) {
     super(props);
     console.log("[App.js] Inside Constructor", props);
@@ -47,7 +51,8 @@ class App extends PureComponent {//pure component having own shouldComponentUpda
     );
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {//it is added in react 16.3 to use it and
+    //componentWillMount componentWillUpdate componetWIllReceiveProps are discouraged
     console.log(
       "[UPDATE App.js] Inside getDerivedStateFromProps",
       nextProps,
@@ -57,7 +62,7 @@ class App extends PureComponent {//pure component having own shouldComponentUpda
     return prevState;
   }
 
-  getSnapshotBeforeUpdate() {
+  getSnapshotBeforeUpdate() {//executes before componnent updates(componentDidUpdate)
     console.log(
       "[UPDATE App.js] Inside getSnapshotBeforeUpdate"
     );
@@ -82,10 +87,13 @@ class App extends PureComponent {//pure component having own shouldComponentUpda
       return p.id === id;
     });
 
+
     const person = {
       ...this.state.persons[personIndex]
     };
 
+
+    // creating a new copy alternate syntax of above code
     // const person = Object.assign({}, this.state.persons[personIndex]);
 
     person.name = event.target.value;
@@ -147,6 +155,8 @@ class App extends PureComponent {//pure component having own shouldComponentUpda
           login={this.loginHandler}
           clicked={this.togglePersonsHandler}
         />
+        {/* it is uing the context api where child elements make use of global context  
+        and below is the provider of the value of app.js*/}
         <AuthContext.Provider value={this.state.authenticated}>
           {persons}
         </AuthContext.Provider>
@@ -156,4 +166,6 @@ class App extends PureComponent {//pure component having own shouldComponentUpda
   }
 }
 
+
+//high order component where any props in any way is passes for more information refer withClass
 export default withClass(App, classes.App);
