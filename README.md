@@ -1,1 +1,1 @@
-This is just having all the basics of react 
+## This project just having all the basics of react 
